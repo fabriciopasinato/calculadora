@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+</head>
+<body>
+	<div class="cont">
+		<!--producto cliente quiere ADQUIRIR-->
+		<h1>Producto que el cliente desa adquirir</h1>
+		<p class="txt">precio del bien o servicio a canjear (iva incluido)</p>
+		<input type="number"  id="precio">
+		<p>Alicuota del IVA</p>
+		<select id="alicuotaiva">
+			<option value="9.5">10.5</option>
+			<option value="17.35">21</option>
+		</select>
+		<br>
+		<input class="inpg" type="text" id="preciosiniva" placeholder="Precio del Bien o Servicio a Canjear (Sin IVA )" disabled="">
+		<br>
+		<input class="inpg" type="text" id="ivabien" placeholder="IVA del Bien o Servicio a Canjear" disabled="">
+		<br>
+		<input class="inpg" type="text" id="ivapercepcioncanje" placeholder="IVA Percepcion x Canje" disabled="">
+		<br>
+		<input class="inpg" type="text" id="totalpagarcanje" placeholder="TOTAL A PAGAR EN CANJE" disabled="">
+		<br>
+
+		<!--producto cliente quiere pagar-->
+		<h1>Producto con el cual el Cliente quiere pagar:</h1>
+		<p>Tipo de Grano</p>
+		<select id="tipograno">
+			<option value="maiz">Maiz</option>
+			<option value="soja">Soja</option>
+			<option value="trigo">Trigo</option>
+		</select>
+		<br>
+		<p>Precio de grando por tonelada</p>
+		<input type="number" name="" id="preciogranoxtonelada">
+		<br>
+		<input class="inpg" type="text" id="ivagranos" placeholder="IVA Granos 10,5%" disabled="">
+		<br>
+		<input class="inpg" type="text" id="preciociva" placeholder="Total Valor Grano c/IVA x Ton." disabled="">
+		<br>
+
+		<!--CANTIDAD DE GRANO A VENDER-->
+		<h1>Cantidad de Grano a Vender (tentativo)</h1>
+		<input class="inpg" type="text" id="tonelasacanjear" placeholder="Toneladas a Canjear" disabled="">
+		<br>
+		<input class="inpg" type="text" id="equivalenciaencamiones" placeholder="Equivalencia en camiones completos" disabled="">
+		<br>
+		<input class="inpg" type="text" id="toneladasacobrar" placeholder="Toneladas a Cobrar" disabled="">
+		<br>
+
+		<!--BOTON CALCULAR Y RESULTADOS-->
+		<button onclick="cal()" class="btn">calcular</button>
+		<p id="resultado"></p>
+	</div>
+	<script type="text/javascript">
+		function cal() {
+			//tomado de datos
+			precio = document.getElementById('precio').value;
+			precio=parseInt(precio);
+    		alicuotaiva = document.getElementById('alicuotaiva').value;
+    		alicuotaiva=parseFloat(alicuotaiva);
+
+    		//precio del bien a cambiar sin iva
+    		preciosiniva=precio-((precio/100)*alicuotaiva);
+    		document.getElementById('preciosiniva').value = preciosiniva;
+
+    		//IVA del Bien o Servicio a Canjear
+    		ivabien=(precio/100)*alicuotaiva;
+    		document.getElementById('ivabien').value = ivabien;
+
+    		//IVA Percepcion x Canje
+    		ivapercepcioncanje=(preciosiniva/100)*1;
+    		document.getElementById('ivapercepcioncanje').value = ivapercepcioncanje;
+
+    		//Total a pagar en canje
+    		totalpagarcanje=precio+ivapercepcioncanje;
+    		document.getElementById('totalpagarcanje').value = totalpagarcanje;
+
+    		//Producto con el cual el Cliente quiere pagar:
+    		//tomado de datos
+    		preciogranoxtonelada= document.getElementById('preciogranoxtonelada').value;
+			preciogranoxtonelada=parseInt(preciogranoxtonelada);
+    		tipograno = document.getElementById('tipograno').value;
+
+    		//IVA Granos 10,5%
+    		ivagranos=(preciogranoxtonelada/100)*10.5;
+    		document.getElementById('ivagranos').value = ivagranos;
+
+    		//Total Valor Grano c/IVA x Ton.
+    		preciociva=preciogranoxtonelada+ivagranos;
+    		document.getElementById('preciociva').value = preciociva;
+
+
+    		//Cantidad de Grano a Vender (tentativo)
+    		//Toneladas a Canjear
+    		tonelasacanjear=totalpagarcanje/preciociva;
+    		document.getElementById('tonelasacanjear').value = tonelasacanjear;
+
+    		//Equivalencia en camiones completos
+    		equivalenciaencamiones=tonelasacanjear/38;
+    		document.getElementById('equivalenciaencamiones').value = equivalenciaencamiones;
+    	}
+    </script>
+    <style type="text/css">
+    	.cont{
+    		margin-left: 10%;
+    		background-color: #85171d;
+    		width: 80%;
+    		text-align: center;
+    		color: #fff;
+    		border-radius: 20px;
+    	}
+    	.inpg{
+    		width: 30%;
+    		margin-top: 1%;
+    	}
+    	.txt{
+    		margin-top: 2%;
+
+    	}
+    	.btn{
+    		margin-top: 3%;
+    		background-color: #85171d;
+    		color: #fff;
+    		width: 45%;
+    		margin-bottom: 3%;
+    		border-radius: 10px;
+    		height: auto;
+    	}
+    	.btn:hover{
+    		background-color: #fff;
+    		color: #85171d;
+    	}
+    </style>
+</body>
+</html>
